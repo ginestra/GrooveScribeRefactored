@@ -1,0 +1,56 @@
+/**
+ * Context Menu Component Styles
+ */
+
+.noteContextMenu {
+  display: none;
+  position: absolute;
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--border-color-primary);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-popover);
+  min-width: 150px;
+  padding: var(--spacing-xs) 0;
+  margin: 0;
+}
+
+.noteContextMenu.show {
+  display: block;
+}
+
+.noteContextMenu .list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.noteContextMenu .list li {
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  transition: background-color var(--transition-fast);
+  user-select: none;
+}
+
+.noteContextMenu .list li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.noteContextMenu .list li.menuChecked {
+  background-color: var(--side-highlight-bg-color);
+  color: var(--color-text-on-dark);
+  font-weight: var(--font-weight-bold);
+}
+
+.noteContextMenu .list li.menuChecked:hover {
+  background-color: var(--highlight-color);
+}
+
+/* Specific context menu items */
+.metronomeOptionsContextMenuItem,
+.metronomeOptionsOffsetClickContextMenuItem {
+  /* Inherits from .list li */
+}
+

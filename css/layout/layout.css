@@ -1,0 +1,126 @@
+/**
+ * Main Layout Styles
+ */
+
+#GrooveWriter {
+  position: relative;
+  background-color: var(--color-bg-primary);
+  width: 100%;
+  min-width: var(--max-width-measure);
+  font: 100%/normal var(--font-family-primary);
+}
+
+/* Left Sidebar Navigation */
+#LeftHandNav {
+  width: var(--sidebar-width);
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border-right: 2px solid var(--border-color-primary);
+  background: var(--side-bg-color);
+  z-index: var(--z-index-sidebar);
+}
+
+/* Top Navigation */
+#TopNav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: var(--z-index-top-nav);
+  width: calc(100% - calc(var(--sidebar-width) + 2px));
+  margin-left: calc(var(--sidebar-width) + 2px);
+  height: var(--top-nav-height);
+  border-bottom: 1px solid var(--border-color-primary);
+  background: var(--header-bg-color);
+  background: linear-gradient(to right, var(--header-bg-start-color), var(--header-bg-end-color));
+  display: block;
+}
+
+/* MIDI Player Bar */
+#midiPlayer {
+  background: var(--color-bg-dark);
+  width: calc(100% - calc(var(--sidebar-width) + 2px));
+  height: var(--midi-player-height);
+  position: fixed;
+  top: var(--top-nav-height);
+  left: calc(var(--sidebar-width) + 2px);
+  z-index: var(--z-index-top-nav);
+  border-bottom: 1px solid var(--border-color-primary);
+}
+
+/* Right Hand Content Area */
+#RightHandContent {
+  position: relative;
+  top: var(--content-top-offset);
+  left: calc(var(--sidebar-width) + 2px);
+  height: calc(100% - var(--content-top-offset));
+  width: calc(100% - calc(var(--sidebar-width) + 2px));
+  overflow-y: auto;
+}
+
+/* Logo Positioning */
+#logoTextUpperLeft {
+  padding: 9px 10px 6px 5px;
+  display: inline-block;
+}
+
+#logoTextUpperLeft img {
+  height: 30px;
+}
+
+#upperLeft {
+  margin-top: 12px;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+#upperRight {
+  margin-top: 12px;
+  display: inline-block;
+  float: right;
+  margin-right: 10px;
+  white-space: nowrap;
+  vertical-align: top;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  #GrooveWriter {
+    min-width: 100%;
+  }
+  
+  #LeftHandNav {
+    width: 60px;
+  }
+  
+  #TopNav,
+  #midiPlayer {
+    margin-left: 60px;
+    width: calc(100% - 60px);
+  }
+  
+  #RightHandContent {
+    left: 60px;
+    width: calc(100% - 60px);
+  }
+}
+
+@media (max-width: 768px) {
+  #LeftHandNav {
+    width: 50px;
+  }
+  
+  #TopNav,
+  #midiPlayer {
+    margin-left: 50px;
+    width: calc(100% - 50px);
+  }
+  
+  #RightHandContent {
+    left: 50px;
+    width: calc(100% - 50px);
+  }
+}
+

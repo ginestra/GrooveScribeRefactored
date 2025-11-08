@@ -1,0 +1,129 @@
+/**
+ * CSS Custom Properties (Variables)
+ * Modern CSS variables for theming and consistency
+ */
+
+:root {
+  /* Color Palette - Base Colors */
+  --color-bg-primary: #393939;
+  --color-bg-secondary: #222222;
+  --color-bg-tertiary: #1c2b33;
+  --color-bg-dark: #000000;
+  
+  /* Header Colors */
+  --header-bg-color: #243640;
+  --header-bg-start-color: #2a404d;
+  --header-bg-end-color: #1c2b33;
+  
+  /* Sidebar Colors */
+  --side-bg-color: #393939;
+  --side-highlight-bg-color: #2484C0;
+  
+  /* Text Colors */
+  --color-text-primary: #EEEEEE;
+  --color-text-secondary: #CCCCCC;
+  --color-text-muted: #999999;
+  --color-text-dark: #000000;
+  --color-text-on-dark: #FFFFFF;
+  
+  /* Accent Colors */
+  --highlight-color: #2484C0;
+  --highlight-color-on-white: #2484C0;
+  --note-overlay-bg-color: #BDEBDD;
+  
+  /* Note Colors */
+  --note-on-color: #000000;
+  --note-off-color: #FFFFFF;
+  --note-border-color: #999999;
+  --hihat-note-off-color: #CCCCCC;
+  --note-hidden-color: transparent;
+  
+  /* Sticking Colors */
+  --sticking-right-on: rgb(36, 132, 192);
+  --sticking-left-on: rgb(57, 57, 57);
+  --sticking-both-on: rgb(57, 57, 57);
+  --sticking-count-on: rgb(57, 57, 57);
+  --sticking-right-off: rgb(204, 204, 204);
+  --sticking-left-off: rgb(204, 204, 204);
+  
+  /* Snare Colors */
+  --snare-accent-on: #FFFFFF;
+  
+  /* Border Colors */
+  --border-color-primary: #000000;
+  --border-color-secondary: #CCCCCC;
+  
+  /* Spacing Scale */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* Typography */
+  --font-family-primary: 'Lato', Calibri, sans-serif;
+  --font-family-monospace: monospace;
+  --font-size-xs: 10px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 16px;
+  --font-size-lg: 18px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 30px;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.75;
+  
+  /* Layout */
+  --sidebar-width: 70px;
+  --top-nav-height: 48px;
+  --midi-player-height: 48px;
+  --content-top-offset: 98px;
+  
+  /* Z-index Scale */
+  --z-index-base: 1;
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-fixed: 300;
+  --z-index-modal-backdrop: 400;
+  --z-index-modal: 500;
+  --z-index-popover: 600;
+  --z-index-tooltip: 700;
+  --z-index-top-nav: 998;
+  --z-index-sidebar: 999;
+  
+  /* Transitions */
+  --transition-fast: 0.1s ease-in-out;
+  --transition-base: 0.2s ease-in-out;
+  --transition-slow: 0.6s ease-in-out;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+  --radius-full: 50%;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  
+  /* Max Widths */
+  --max-width-content: 1478px;
+  --max-width-measure: 800px;
+}
+
+/* Dark theme adjustments (if needed in future) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Can add dark theme overrides here if needed */
+  }
+}
+

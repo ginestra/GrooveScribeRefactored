@@ -1,0 +1,154 @@
+/**
+ * Button Component Styles
+ */
+
+/* Left Sidebar Buttons */
+.left-button {
+  display: block;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.left-button-content {
+  display: block;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  height: 48px;
+  border-bottom: 1px solid var(--border-color-primary);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.left-button-content:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+}
+
+.left-button.buttonSelected .left-button-content,
+.left-button.selected .left-button-content {
+  background-color: var(--side-highlight-bg-color);
+  color: var(--color-text-on-dark);
+}
+
+/* Top Navigation Buttons */
+.metronomeButton,
+.rightButtons {
+  padding: 2px;
+  cursor: pointer;
+  display: inline-block;
+  color: var(--color-text-primary);
+  border: 0 solid transparent;
+  text-align: center;
+  border-radius: var(--radius-xl);
+  margin: 0 1px;
+  height: 20px;
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-sm);
+}
+
+.rightButtons {
+  margin: 0 6px;
+}
+
+.metronomeButton:hover,
+.rightButtons:hover,
+.metronomeButton.selected:hover,
+.rightButtons.selected:hover,
+.rightButtons.buttonSelected:hover {
+  font-weight: var(--font-weight-bold);
+  transform: scale(1.05);
+}
+
+.metronomeButton.buttonSelected,
+.metronomeButton.selected,
+.rightButtons.buttonSelected {
+  color: var(--color-text-on-dark);
+  font-weight: var(--font-weight-bold);
+}
+
+.metronomeButton.options {
+  width: 75px;
+}
+
+/* Bottom Toolbar Buttons */
+.pageBottomButton {
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  padding: var(--spacing-sm);
+  margin: 0 var(--spacing-xs);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  color: var(--color-text-muted);
+}
+
+.pageBottomButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--color-text-primary);
+  transform: translateY(-2px);
+}
+
+.bottomButtonIcon {
+  display: block;
+  margin-bottom: var(--spacing-xs);
+}
+
+.bottomButtonLabel {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Standard Button */
+button {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--border-color-secondary);
+  border-radius: var(--radius-md);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--highlight-color);
+  color: var(--color-text-on-dark);
+  border-color: var(--highlight-color);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Icon Buttons */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon-button:hover {
+  background-color: var(--highlight-color);
+  color: var(--color-text-on-dark);
+  transform: scale(1.1);
+}
+

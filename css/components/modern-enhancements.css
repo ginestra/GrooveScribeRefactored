@@ -1,0 +1,218 @@
+/**
+ * Modern UI Enhancements
+ * Additional modern styling improvements without using Tailwind CSS
+ */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Improved focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--highlight-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Card-based layouts */
+.card {
+  background-color: var(--color-bg-secondary);
+  border: 1px solid var(--border-color-secondary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+/* Improved spacing system */
+.spacing-xs { margin: var(--spacing-xs); }
+.spacing-sm { margin: var(--spacing-sm); }
+.spacing-md { margin: var(--spacing-md); }
+.spacing-lg { margin: var(--spacing-lg); }
+.spacing-xl { margin: var(--spacing-xl); }
+
+.padding-xs { padding: var(--spacing-xs); }
+.padding-sm { padding: var(--spacing-sm); }
+.padding-md { padding: var(--spacing-md); }
+.padding-lg { padding: var(--spacing-lg); }
+.padding-xl { padding: var(--spacing-xl); }
+
+/* Modern note grid styling */
+.note-grid {
+  display: grid;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+}
+
+.note-cell {
+  aspect-ratio: 1;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.note-cell:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.note-cell.active {
+  background-color: var(--note-on-color);
+  border-color: var(--highlight-color);
+}
+
+/* Improved tooltips */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  z-index: var(--z-index-tooltip);
+  box-shadow: var(--shadow-lg);
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Loading states */
+.loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid var(--highlight-color);
+  border-top-color: transparent;
+  border-radius: var(--radius-full);
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Improved transitions for state changes */
+.fade-in {
+  animation: fadeIn var(--transition-base);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp var(--transition-base);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive text sizing */
+@media (max-width: 768px) {
+  :root {
+    --font-size-base: 14px;
+    --font-size-sm: 11px;
+    --font-size-xs: 9px;
+  }
+}
+
+/* Improved contrast for better accessibility */
+.high-contrast {
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #EEEEEE;
+  --border-color-primary: #FFFFFF;
+}
+
+/* Modern glassmorphism effect (optional) */
+.glass-effect {
+  background: rgba(57, 57, 57, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Improved button groups */
+.button-group {
+  display: inline-flex;
+  gap: var(--spacing-xs);
+  align-items: center;
+}
+
+.button-group button {
+  margin: 0;
+}
+
+.button-group button:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.button-group button:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.button-group button:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+/* Modern popup/dialog styling */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: var(--z-index-modal-backdrop);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-content {
+  background-color: var(--color-bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  max-width: 90vw;
+  max-height: 90vh;
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-modal);
+  animation: slideUp var(--transition-base);
+}
+

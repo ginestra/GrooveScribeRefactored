@@ -1,0 +1,14 @@
+/**
+ * Grey Theme
+ * Alternative theme option
+ */
+
+:root {
+  /* Grey theme overrides */
+  --header-bg-color: #4a4a4a;
+  --header-bg-start-color: #555555;
+  --header-bg-end-color: #3a3a3a;
+  --side-bg-color: #4a4a4a;
+  --highlight-color: #666666;
+}
+

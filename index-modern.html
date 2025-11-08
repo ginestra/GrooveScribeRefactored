@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+	<!-- HTML for the Groove Writer part of the Groove Scribe HTML application -->
+	<!--Copyright 2015-2020 Lou Montulli, Mike Johnston  GPL V2.0 Please See LICENSE.txt for more details -->
+	<!-- Refactored 2024 - Modern Architecture -->
+
+    <head>
+		<title>Groove Scribe</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" sizes="192x192" href="images/gscribe-icon-192.png">
+		<link rel="icon" sizes="96x96" href="images/gscribe-icon-96.png">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+		<meta property="og:description" content="Groove Scribe allows drummers to easily create grooves, listen, share, print sheet music, and more. Use the Groove Scribe to create new grooves, figure out the groove to your favorite song, or write down the groove to your latest tune."/>
+		<meta property="og:site_name" content="GrooveScribe at MikesLessons.com"/>
+
+		<script>
+			document.write('<meta property="og:image" content="https://gscribe-png-image.herokuapp.com/' + window.location.search + '">');
+		</script>
+		<meta property="og:image" content="https://mikeslessons.com/groove/images/GScribe_Logo_on_orange.png">
+
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="font-awesome/4.7.0/css/font-awesome.min.css">
+		
+		<!-- Share Button -->
+		<link rel="stylesheet" type="text/css" href="css/share-button.min.css">
+		
+		<!-- Modern CSS Architecture -->
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/components/modern-enhancements.css">
+		
+		<!-- Legacy CSS (will be gradually replaced) -->
+		<link rel="stylesheet" type="text/css" href="css/groove_writer_orange.css">
+		<link rel="stylesheet" type="text/css" href="css/groove_display_orange.css">
+		<link rel="stylesheet" type="text/css" href="css/bpm-tapper.min.css">
+		
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Lato:400,700,300' rel='stylesheet' type='text/css'>
+
+		<!-- External JavaScript Libraries -->
+		<script src="./MIDI.js/js/MIDI/AudioDetect.js" type="text/javascript"></script>
+		<script src="./MIDI.js/js/MIDI/LoadPlugin.js" type="text/javascript"></script>
+		<script src="./MIDI.js/js/MIDI/Plugin.js" type="text/javascript"></script>
+		<script src="./MIDI.js/js/MIDI/Player.js" type="text/javascript"></script>
+		<script src="./MIDI.js/inc/DOMLoader.XMLHttp.js" type="text/javascript"></script>
+		<script src="./MIDI.js/inc/jasmid/stream.js"></script>
+		<script src="./MIDI.js/inc/jasmid/midifile.js"></script>
+		<script src="./MIDI.js/inc/jasmid/replayer.js"></script>
+		<script src="./MIDI.js/inc/Base64.js"></script>
+		<script src="./MIDI.js/inc/base64binary.js"></script>
+
+		<!-- ABC to SVG renderer -->
+		<script type="text/javascript" src="./js/abc2svg-1.js"></script>
+
+		<!-- SVG to PNG converter -->
+		<script type="text/javascript" src="./js/pablo.min.js"></script>
+
+		<!-- Share button -->
+		<script src="js/share-button.min.js"></script>
+
+		<!-- MIDI file generation -->
+		<script src="./js/jsmidgen.js" type="text/javascript"></script>
+		
+		<!-- Legacy JavaScript (will be gradually replaced) -->
+		<script src="js/groove_writer.js"></script>
+		<script src="js/groove_utils.js"></script>
+		<script src="js/grooves.js"></script>
+
+		<!-- Initialize legacy GrooveWriter for compatibility -->
+		<script type="text/javascript">
+			/*jslint browser:true evil:true on:true */
+			/*global GrooveWriter, grooves */
+			var myGrooveWriter = new GrooveWriter();
+			if (myGrooveWriter.myGrooveUtils.grooveDBAuthoring) {
+				document.write('<link rel="stylesheet" type="text/css" href="css/grooveDB_authoring.css">');
+			}
+			if (myGrooveWriter.myGrooveUtils.debugMode) {
+				document.write('<link rel="stylesheet" type="text/css" href="css/groove_debug.css">');
+			}
+		</script>
+
+		<!-- jQuery -->
+		<script src="js/jquery-3.7.1.min.js"></script>
+		
+		<!-- Modern Application Entry Point -->
+		<script type="module" src="src/main.js"></script>
+
+    </head>
+    <body>
+
+	<div id="GrooveWriter">
+		<div class="nonPrintable">
+			<div id="LeftHandNav">
+				<span id="divisionButtonContainer">
+					<span id="logoInSubdivision" class="left-button-content"><img src="images/GScribe_Logo_lone_g.svg" alt="GrooveScribe Logo"></span>
+					<span class="left-button edit-block" id="timeLabel" role="button" tabindex="0" aria-label="Time Signature"><span class="left-button-content"><span><span id="timeSigLabel" class="buttonFraction"><sup>4</sup>/<sub>4</sub></span><span id="timeSubLabel">TIME</span></span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_8ths" role="button" tabindex="0" aria-label="Eighth Notes"><span class="left-button-content"><span><span class="buttonFraction"><sup>1</sup>/<sub>8</sub></span>NOTES</span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_16ths" role="button" tabindex="0" aria-label="Sixteenth Notes"><span class="left-button-content"><span><span class="buttonFraction"><sup>1</sup>/<sub>16</sub></span>NOTES</span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_32ths" role="button" tabindex="0" aria-label="Thirty-Second Notes"><span class="left-button-content"><span><span class="buttonFraction"><sup>1</sup>/<sub>32</sub></span>NOTES</span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_12ths" role="button" tabindex="0" aria-label="Eighth Note Triplets"><span class="left-button-content"><span><span class="buttonFraction"><sup>1</sup>/<sub>8</sub></span>TRIPLETS</span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_24ths" role="button" tabindex="0" aria-label="Sixteenth Note Triplets"><span class="left-button-content"><span><span class="buttonFraction"><sup>1</sup>/<sub>16</sub></span>TRIPLETS</span></span></span>
+					<span class="left-button subdivision edit-block" id="subdivision_48ths" role="button" tabindex="0" aria-label="Mixed Division"><span class="left-button-content"><span>MIXED<br>Division</span></span></span>
+
+					<script>
+						if (!myGrooveWriter.myGrooveUtils.grooveDBAuthoring) {
+							document.write('<span class="left-button" role="button" tabindex="0" id="view-edit-switch" aria-label="Switch to Edit mode"><span class="left-button-content"><span id="view-edit-switch-text">Switch to EDIT mode</span></span></span>');
+						}
+					</script>
+
+					<script>
+						if (myGrooveWriter.myGrooveUtils.is_touch_device()) {
+							document.write('<span class="left-button edit-block" id="advancedEditAnchor" role="button" tabindex="0" aria-label="Advanced Edit"><span class="left-button-content">Advanced Edit</span></span>');
+						}
+					</script>
+
+					<span class="left-button edit-block" id="undoButton" role="button" tabindex="0" aria-label="Undo"><span class="left-button-content"><i class="fa fa-undo"></i>&nbsp;&nbsp;Undo</span></span>
+				</span>
+
+			</div>
+			<div id="TopNav" class="fullWidthEle">
+				<span id="logoTextUpperLeft"><img src="images/GScribe_Logo_word_stack.svg" alt="GrooveScribe"></span>
+				<span id="upperLeft">
+					<span id="metronomeContainer">
+						<span id="metronomeLabel">METRONOME:</span>
+						<span class="metronomeButton" id="metronomeOff" role="button" tabindex="0" aria-label="Metronome Off">OFF</span>
+						<span class="metronomeButton" id="metronome4ths" role="button" tabindex="0" aria-label="Metronome on 4ths">4th</span>
+						<span class="metronomeButton" id="metronome8ths" role="button" tabindex="0" aria-label="Metronome on 8ths">8th</span>
+						<span class="metronomeButton" id="metronome16ths" role="button" tabindex="0" aria-label="Metronome on 16ths">16th</span>
+						<span class="metronomeButton Options grooveDB_hidden" id="metronomeOptionsAnchor" role="button" tabindex="0" aria-label="Metronome Options">Options</span>
+					</span>
+				</span>
+				<span id="upperRight">
+					<span class="rightButtons grooveDB_hidden" id="permutationAnchor" role="button" tabindex="0" aria-label="Permutations"><i class="fa fa-bars"></i> Permutations</span>
+					<span class="rightButtons" id="groovesAnchor" role="button" tabindex="0" aria-label="Grooves"><i class="fa fa-bars"></i> Grooves</span>
+					<span class="rightButtons" id="helpAnchor" role="button" tabindex="0" aria-label="Help"><i class="fa fa-bars"></i> Help</span>
+				</span>
+			</div>
+			<div id="midiPlayer" class="fullWidthEle"><!-- space for the midiplayer to be attached by the javascript --></div>
+		</div>
+
+		<div id="RightHandContent">
+			<div class="nonPrintable">
+
+				<div id="PermutationOptions">
+					<script type="text/javascript">
+							var genHTML = "";
+							genHTML += myGrooveWriter.HTMLforPermutationOptions();
+							document.write(genHTML);
+					</script>
+				</div>
+			</div>
+
+			<div class="Printable">
+				<!-- rendering area -->
+				<div id="sheetMusicDiv" class="fullWidthEle">
+					<div id="svgTarget" class="svgTarget">
+						<!-- space for the SVG sheet music to display -->
+					</div>
+				</div>
+			</div>
+			<div class="nonPrintable">
+
+				<p class="warnings">Warnings:</p>
+				<div class="warnings" id="diverr">
+				</div>
+
+				<div id="sheetMusicTextFields" class="fullWidthEle grooveDB_hidden edit-block">
+					<span class="sheetMusicTextField"><b>Title:</b> <input class="sheetMusicInputField" id="tuneTitle" type="text" aria-label="Tune Title"></span>
+					<span class="sheetMusicTextField"><b>Author:</b> <input class="sheetMusicInputField" id="tuneAuthor" type="text" aria-label="Tune Author"></span>
+					<span class="sheetMusicTextField"><b>Comment:</b> <input class="sheetMusicInputField" id="tuneComments" type="text" aria-label="Tune Comments"></span>
+					<span id='KeyButton'><input type="checkbox" class="hiddenCheckbox" id="showLegend" aria-label="Show Legend"><label id="LegendLabel" for="showLegend"><i class="fa fa-key"></i></label></span>
+				</div>
+
+				<div id="musicalInput" class="fullWidthEle edit-block">
+					<div id="measureContainer">
+						<script type="text/javascript">
+              var genHTML = "";
+              var cur_measure;
+              for (cur_measure = 1; cur_measure <= myGrooveWriter.numberOfMeasures(); cur_measure++) {
+                genHTML += myGrooveWriter.HTMLforStaffContainer(cur_measure, (cur_measure - 1) * myGrooveWriter.notesPerMeasure());
+              }
+              document.write(genHTML);
+              //console.log(genHTML);
+						</script>
+					</div>
+				</div>
+
+				<div id="bottomButtonRow" class="fullWidthEle">
+					<span class="pageBottomButton edit-block" id="clearAllNotesButton" role="button" tabindex="0" aria-label="Clear All Notes"><span class="bottomButtonIcon"><i class="fa fa-trash fa-2x"></i></span><span class="bottomButtonLabel">CLEAR ALL</span></span>
+					<span class="pageBottomButton edit-block" id="showHideTomsButton" role="button" tabindex="0" aria-label="Show Hide Toms"><span class="bottomButtonIcon"><i id="icon-tom1" class="fa fa-circle"></i><i id="icon-tom2" class="fa fa-circle-o"></i><i id="icon-tom3" class="fa fa-circle-o"></i></span><span class="bottomButtonLabel">TOMS</span></span>
+					<span class=" grooveDB_hidden pageBottomButton" id="stickingsButton" role="button" tabindex="0" aria-label="Stickings"><span class="bottomButtonLabel">STICKINGS</span></span>
+					<span class=" grooveDB_hidden pageBottomButton" id="downloadButton" role="button" tabindex="0" aria-label="Download"><span class="bottomButtonIcon"><i class="fa fa-download fa-2x"></i></span><span class="bottomButtonLabel">DOWNLOAD</span></span>
+					<span class=" grooveDB_hidden pageBottomButton" id="printButton" role="button" tabindex="0" aria-label="Print"><span class="bottomButtonIcon"><i class="fa fa-print fa-2x"></i></span><span class="bottomButtonLabel">PRINT</span></span>
+					<span class=" grooveDB_hidden pageBottomButton" id="shareSaveButton" role="button" tabindex="0" aria-label="Share"><span class="bottomButtonIcon"><i class="fa fa-share fa-2x"></i></span><span class="bottomButtonLabel">SHARE</span></span>
+				</div>
+
+				<div class="bpm-tapper">
+					<p>BPM Finder</p>
+					<div class="tapping-area">
+
+					</div>
+					<div class="result">
+						<span>Your BPM: </span>
+						<span class="result-bpm"></span>
+					</div>
+					
+					<div class="reset-alert">
+						<p class="hide">Counter stopped due to inactivity</p>
+					</div>
+					<button class="reset-button">Start over</button>
+				</div>
+
+				<p class="credits"><a href="//github.com/ginestra/GrooveScribe">Github Repo</a></p>
+
+				<div id="midiTextOutput">
+				</div>
+
+				<span id="hiddenDescription">
+					GrooveScribe allows drummers to easily create grooves, listen, share, print sheet music, and more.
+					Use the GrooveScribe to create new grooves, figure out the groove to your favorite song, or write down the groove to your latest tune.
+				</span>
+
+				<!-- GrooveDB output area -->
+				<div id="GrooveDB_MetaData" class="grooveDB_show" style="display:none;">
+					<div id="grooveDBInstructions">
+					This is the text that should be added to the GrooveDB for this groove.  <br>
+					<b>Copy and paste it into the GrooveDB edit window </b>
+					</div>
+					<div>
+					<textarea id="GrooveDB_source" class="fullWidthEle"></textarea>
+					</div>
+				</div>
+
+				<div id="debugDisplayArea">
+					<span id="undoStack"></span>
+					<span id="redoStack"></span>
+					<span id="URLSearchData"></span>
+					<!-- ABC notation -->
+					<A href="" id="showHideABC" role="button" tabindex="0" aria-label="Show Hide ABC Notation">Show/Hide ABC Notation</a>
+
+					<div id="ABC_Results">
+						<p>ABC Notation is used for rendering the music.  You can see what is being generated below. You can even edit it.</p>
+						<p>NOTE: whenever the page is modified, the ABC Notation below will be overwritten automatically.</p>
+						<p>For more information about ABC Notation go here: <a href="http://abcnotation.com/">http://abcnotation.com/</a></p>
+						<textarea id="ABCsource" rows="10" cols="72" ></textarea>
+						<br>
+						<button type="button" id="rerenderButton">Re-render the music</button>
+						<button type="button" id="saveABCButton">Save ABC to file</button>
+					</div>
+					<span id="debugOutput"></span>
+				</div>
+
+				<div id="totalPlayTime">
+				</div>
+			</div>
+		</div>
+
+		<!-- Context menus (keeping original structure for now) -->
+		<!-- These will be converted to use ContextMenu component in future -->
+		<div class="noteContextMenu" id="metronomeOptionsContextMenu">
+			<ul class="list">
+				<li class="metronomeOptionsContextMenuItem" id="metronomeOptionsContextMenuSolo" title="Just hear the metronome.">Solo</li>
+				<li class="metronomeOptionsContextMenuItem" id="metronomeOptionsContextMenuSpeedUp" title="Increase the tempo automatically">Auto speed up</li>
+				<li class="metronomeOptionsContextMenuItem" id="metronomeOptionsContextMenuCountIn" title="One measure of metronome count in at the start">Count it in</li>
+				<li class="metronomeOptionsContextMenuItem" id="metronomeOptionsContextMenuOffTheOne" title="Click on the e, &, or a">Offset click</li>
+			</ul>
+		</div>
+
+		<!-- Additional context menus would go here - keeping original structure for compatibility -->
+
+		<div id="grooveListWrapper">
+			<script>
+				document.write(grooves.getGroovesAsHTML());
+			</script>
+		</div>
+
+		<!-- Time signature popup dialog -->
+		<div id="timeSigPopup" style="display:none;">
+			<div id="timeSigPopupTitle">Choose a Time Signature</div>
+			<div id="timeSigPopupOptions">
+			 <select id="timeSigPopupTimeSigTop" aria-label="Time Signature Top">
+			  <option value="1">1</option>
+			  <option value="2">2</option>
+			  <option value="3">3</option>
+			  <option selected value="4">4</option>
+			  <option value="5">5</option>
+			  <option value="6">6</option>
+			  <option value="7">7</option>
+			  <option value="8">8</option>
+			  <option value="9">9</option>
+			  <option value="10">10</option>
+			  <option value="11">11</option>
+			  <option value="12">12</option>
+			  <option value="13">13</option>
+			  <option value="14">14</option>
+			  <option value="15">15</option>
+			  <option value="16">16</option>
+			  <option value="17">17</option>
+			  <option value="18">18</option>
+			  <option value="19">19</option>
+			  <option value="20">20</option>
+			  <option value="21">21</option>
+			  <option value="22">22</option>
+			  <option value="23">23</option>
+			  <option value="24">24</option>
+			  <option value="25">25</option>
+			  <option value="26">26</option>
+			  <option value="27">27</option>
+			  <option value="28">28</option>
+			  <option value="29">29</option>
+			  <option value="30">30</option>
+			  <option value="31">31</option>
+			  <option value="32">32</option>
+			</select>
+			<b id="timeSigPopupSlash">/</b>
+			<select id="timeSigPopupTimeSigBottom" aria-label="Time Signature Bottom">
+			  <option selected value="4">4</option>
+			  <option value="8">8</option>
+			  <option value="16">16</option>
+			</select>
+			</div>
+			<div id="timeSigPopupButtons">
+			<button id="timeSigPopupCancel">Cancel</button>
+			<button id="timeSigPopupOK">Done</button>
+			</div>
+		</div>
+
+		<!-- Share URL popup -->
+		<div id="fullURLPopup" style="display:none;">
+			<span id="fullURLPopupCloseButton" role="button" tabindex="0" aria-label="Close"><i class="fa fa-lg fa-times-circle"></i></span>
+			<div id="fullURLPopupTitle">Share Your Groove</div>
+			<div id="fullURLPopupSubTitle">Use this URL to share or save this groove</div>
+			<div id="fullURLPopupSubSubTitle">(You can also bookmark this page)</div>
+			<div id="fullURLPopupCheckboxes">
+				<span><label id="shortURLLabel" class="fullURLPopupCheckboxLabel"><input type="checkbox" id="shortenerCheckbox">Short URL</label></span>
+				<span><label id="embedCodeLabel" class="fullURLPopupCheckboxLabel"><input type="checkbox" id="embedCodeCheckbox">Embed Code</label></span>
+			</div>
+			<div id="fullURLPopupTextFieldContainer"><input type="text" id="fullURLPopupTextField" aria-label="Share URL"></div>
+			<br>
+			<div id="shareButtonContainer">
+				<button id="fullURLPopupCopyButton">&nbsp;<i class="fa fa-copy"></i> &nbsp;COPY&nbsp;</button>
+				&nbsp; &nbsp; &nbsp;
+				<share-button id="shareButton"></share-button>
+			</div>
+		</div>
+
+		<!-- Metronome auto speedup configuration -->
+		<div id="metronomeAutoSpeedupConfiguration" style="display:none;">
+			<div id="metronomeAutoSpeedupOutputText">
+				Increase <span id="metronomeAutoSpeedupTempoIncreaseAmountOutput">5</span> bpm in
+				<span id="metronomeAutoSpeedupTempoIncreaseIntervalOutput">2</span> min
+			</div>
+			<div id="metronomeAutoSpeedupConfigurationKeepIncreasing">
+				<input type="checkbox" checked id="metronomeAutoSpeedUpKeepGoingForever"><label for="metronomeAutoSpeedUpKeepGoingForever">Keep increasing after the first interval</label>
+			</div>
+			<div id="metronomeAutoSpeedupConfigurationSliders">
+				<div id="metronomeAutoSpeedupConfigurationAmountLable">Amount in BPM</div>
+				<input type="range" min="1" max="100" value="5" class="metronomeAutoSpeedUpRange" id="metronomeAutoSpeedupTempoIncreaseAmount" aria-label="Tempo Increase Amount">
+				<div id="metronomeAutoSpeedupConfigurationIntervalLable">Interval in Minutes</div>
+				<input type="range" min="1" max="20" value="2" class="metronomeAutoSpeedUpRange" id="metronomeAutoSpeedupTempoIncreaseInterval" step="1" aria-label="Tempo Increase Interval">
+			</div>
+			<div id="metronomeAutoSpeedupCloseButtonDiv">
+				<button id="metronomeAutoSpeedupConfigurationCloseButton">Done</button>
+			</div>
+		</div>
+
+		<script>
+			// Legacy initialization - will be replaced by modern controller
+			window.onload = function () { 'use strict';
+				myGrooveWriter.runsOnPageLoad();   // Initialize the notes
+			};
+		</script>
+		<!-- BPM Tapper -->
+		<script src="js/bpm-tapper.js"></script>
+	</div>
+    </body>
+</html>
+

@@ -1,0 +1,60 @@
+/**
+ * CSS Reset and Base Styles
+ */
+
+/* Debug mode - puts red border around everything */
+DEBUG {
+  border: 1px solid red;
+}
+
+/* Base Reset */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: var(--color-bg-primary);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Print styles */
+@media print {
+  .nonPrintable {
+    display: none !important;
+  }
+  
+  .Printable {
+    display: block !important;
+  }
+}
+
+/* Utility classes */
+.warnings {
+  font-family: var(--font-family-monospace);
+  display: none;
+}
+
+.Printable {
+  display: block;
+}
+
+.nonPrintable {
+  display: block;
+}
+
+.fullWidthEle {
+  max-width: var(--max-width-content);
+}
+
