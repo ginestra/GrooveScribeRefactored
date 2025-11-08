@@ -1,0 +1,25 @@
+# Jekyll configuration for GitHub Pages
+# This is optional - only needed if using Jekyll features
+
+# Exclude files from Jekyll processing
+exclude:
+  - node_modules
+  - package.json
+  - package-lock.json
+  - vite.config.js
+  - .gitignore
+  - README.md
+  - .github
+  - src
+  - .vscode
+
+# Include necessary files
+include:
+  - _config.yml
+
+# Plugins (if needed)
+plugins: []
+
+# Theme (optional)
+# theme: minima
+
